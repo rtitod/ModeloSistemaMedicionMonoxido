@@ -1,0 +1,49 @@
+class Sensor
+types
+-- TODO Define types here
+		--public Direccion = seq1 of (char);
+		public Lecturas = seq of Lectura;
+		public SensorId = token;
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+		--direccion : Direccion;
+		lecturas : seq of Lectura := [];
+		sid : SensorId;
+
+inv len lecturas <= 6
+
+operations
+-- TODO Define operations here
+public getLecturas:() ==> Lecturas
+getLecturas() == (
+		return lecturas;
+);
+
+public addLectura:(Lectura) ==> ()
+addLectura(newLectura) == 
+(
+	lecturas := lecturas ^ [newLectura];
+);
+
+public getID:() ==> SensorId
+getID() == (
+	return sid;
+);
+
+-- Contructor
+public Sensor: SensorId*Lecturas  ==> Sensor
+Sensor(mysensorid, newLecturas ) == (
+	sid := mysensorid;
+	lecturas := newLecturas;
+)
+pre len newLecturas <= 6;
+
+functions
+-- TODO Define functions here
+
+traces
+-- TODO Define Combinatorial Test Traces here
+
+end Sensor

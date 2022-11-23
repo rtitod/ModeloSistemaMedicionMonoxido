@@ -1,0 +1,60 @@
+class Sistema
+types
+-- TODO Define types here
+		public string = seq of char;
+		public Sensores = map Sensor`SensorId to Sensor
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+		sensores : Sensores;
+		bot : Alarma;
+		tmp : Sensor`Lecturas;	
+		intermedio : bool;
+		superior : bool;
+		inferior : bool;
+		
+operations
+-- TODO Define operations here
+public Sistema: set of Sensor*Alarma ==> Sistema
+Sistema(sensoresList, mybot) == (
+		sensores := {item.getID() |-> item | item in set sensoresList};
+		bot := mybot;
+)
+pre (forall p,q in set sensoresList & p <> q => p.getID() <> q.getID());
+
+public getSensores:() ==>(map Sensor`SensorId to Sensor)
+getSensores() == (
+		return sensores;
+);
+public getStatus:(Sensor`SensorId) ==> (Alarma`Toxicidad)
+getStatus(mysensorid) == (
+  --AQUI INTENTEMOS ESTABLECER CUAL ES EL ESTATUS DE UN SENSOR EN PARTICULAR
+	tmp := sensores(mysensorid).getLecturas();
+--	check := forall x in seq tmp & x.getValorLectura() < 500;
+	-- exists medida in seq tmp & medida > 500;
+	-- forall index in seq idns
+	
+	inferior := (forall x in set inds tmp & tmp(x).getValorLectura() < 120);
+	-- inferior := true;
+
+	intermedio := forall x in set inds tmp & tmp(x).getValorLectura() < 500;
+	
+	-- intermedio := true;
+
+--	superior := forall x in seq tmp & x.getValorLectura() >= 500;
+	
+	if inferior
+	then	return <Leve>
+	elseif intermedio
+	then return <Medio>
+	else return <Severo>;
+);
+
+-- public valorToxicidad: () ==> 
+
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Sistema

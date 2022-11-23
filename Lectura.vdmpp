@@ -1,0 +1,62 @@
+class Lectura
+types
+-- TODO Define types here
+	public Fecha = seq of nat;
+	public Hora = seq of nat;
+
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+		fecha : Fecha := [0,0,0]; --anio, mes y dia
+		hora : Hora := [0,0,0]; -- hora, minuto y segundo
+		valor : real;
+operations
+--Contructor de Lectura
+public Lectura:real*Fecha*Hora ==> (Lectura)
+Lectura(newvalor, newFecha, newHora) == 
+(
+	valor := newvalor;
+	fecha := newFecha;
+	hora := newHora;
+)
+
+pre len newFecha = 3 and len newHora = 3 and newvalor >= 0
+and forall item in set inds newFecha & newFecha(item) >= 0
+and newFecha(1) >= 1493 and newFecha(1) <= 2900
+and newFecha(2) >= 1 and newFecha(2) <= 31
+and newHora(1) >= 0 and newHora(1) <= 23
+and newHora(2) >= 0 and newHora(2) <= 59
+and newHora(3) >= 0 and newHora(3) <= 59;
+
+-- TODO Define operations here
+public getValorLectura: () ==> real
+getValorLectura() == (
+		return valor;
+);
+public getFecha: () ==> Fecha
+getFecha() == (
+		return fecha;
+);
+public getHora: () ==> Hora
+getHora() == (
+		return hora;
+);
+public setValorLectura: (real) ==> ()
+setValorLectura(newLectura) == (
+		valor := newLectura;
+);
+public setHora: (Hora) ==> ()
+setHora(newHora) == (
+		hora := newHora;
+);
+public setFecha: (Fecha) ==> ()
+setFecha(newFecha) == (
+		fecha := newFecha;
+);
+
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Lectura

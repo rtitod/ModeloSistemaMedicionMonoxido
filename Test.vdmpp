@@ -1,0 +1,93 @@
+class Test
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+		private l1: Lectura;
+		private l2: Lectura;
+		private l3: Lectura;
+		private l4: Lectura;
+		private l5: Lectura;
+		private l6: Lectura;
+		
+		private s1: Sensor;
+		private s2: Sensor;
+		
+		private sys: Sistema;
+		private alarma: Alarma;
+
+		-- Para poder obtener datos especificos para los test	
+		private aux1: Sensor`Lecturas;	
+		private aux2: Sensor`SensorId;
+		private aux3: Sistema`Sensores;
+		private aux4: Alarma`Toxicidad;
+
+
+operations
+-- TODO Define operations here
+
+
+
+public Testear : () ==> ()
+Testear() == (
+	TestGeneral();
+);
+
+
+public TestGeneral : () ==> ()
+TestGeneral() == (
+		
+		l1 := new Lectura(100,[2022,10,11],[22,02,00]);
+
+		l2 := new Lectura(100,[2022,31,12],[22,02,00]);
+
+		l3 := new Lectura(100,[2022,10,13],[22,02,00]);
+
+		l4 := new Lectura(100,[2022,10,14],[22,02,00]);
+
+		l5 := new Lectura(100,[2022,10,15],[22,02,00]);
+
+		l6 := new Lectura(100,[2022,10,15],[22,02,00]);
+
+        l1.setValorLectura(111);
+		l1.setValorLectura(l1.getValorLectura());
+		l1.setFecha([2022,10,11]);
+		l1.setFecha(l1.getFecha());
+		l1.setHora(l1.getHora());
+		s1 := new Sensor(mk_token(1),[l1,l2,l3,l4,l5]);
+		s2 := new Sensor(mk_token(2),[l1,l2,l5]);
+
+
+		s1.addLectura(l6);
+
+		aux1 := s1.getLecturas();
+		aux2 := s1.getID();
+
+		alarma := new Alarma(['a','2']);
+		sys := new Sistema({s1,s2}, alarma);
+		aux3 := sys.getSensores();
+		aux4 := sys.getStatus(mk_token(1));
+		l1.setValorLectura(300);
+		l2.setValorLectura(300);
+		l3.setValorLectura(300);
+		l4.setValorLectura(300);
+		l5.setValorLectura(300);
+		l6.setValorLectura(300);
+		aux4 := sys.getStatus(mk_token(1));
+		l1.setValorLectura(600);
+		l2.setValorLectura(600);
+		l3.setValorLectura(600);
+		l4.setValorLectura(600);
+		l5.setValorLectura(600);
+		l6.setValorLectura(600);
+		aux4 := sys.getStatus(mk_token(1));
+);
+
+
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Test
